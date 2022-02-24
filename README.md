@@ -4,6 +4,7 @@ This project shows a deep learning based approach to detect and identify differe
 **A *Trailer* of Final Result:**
 
 <img src="https://github.com/abhanjac/blood_cell_image_detection/blob/main/images/blood_cell_detection.gif" width="300" height="150">
+
 [**YouTube Link**](https://youtu.be/NkO_WeDJ9Ng)
 
 ---
