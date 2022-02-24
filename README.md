@@ -1,5 +1,5 @@
 # Objective: 
-This project shows a deep learning based approach to detect and identify different types of blood cells and also detect the presence of malarial parasites in the blood. This algorithm takes in digitized blood smear images and then uses modified versions of YoloV2 model to identify the different objects with an overall mean average precision of 0.95.
+This project shows a deep learning based approach to detect and identify different types of blood cells and also detect the presence of malarial parasites in the blood. This algorithm takes in digitized blood smear images and then uses modified versions of YoloV2 model to identify the different objects with an overall mean average precision of 0.97.
 
 **A *Trailer* of Final Result:**
 
@@ -15,6 +15,7 @@ The images in the dataset used here has the following types of cells: **2** type
 **5** types of WBCs: **Eosinophil**, **Basophil**, **Neutrophil**, **Lymphocytes**, and **Monocytes**; 
 **2** types of Platelets: **Thrombocytes** (individual platelet cells) and **Platelet Clumps** (bunch of platelets appearing as a cluster).
 So overall there are **9** objects.
+
 
 # Dataset Creation:
 The images used for creating the training, testing and validation datasets are obtained from four different databases: 
@@ -86,10 +87,12 @@ The total number of images in the final training, testing and validation sets ar
 
 But the datasets being too big are not added to this github repository. Some sample images are given in the [trial/images](trial/images) folder. Each of these images has a json file associated with them which contains the details of the objects present in the image along with the dimensions of the bounding box for that object. These are given in the [trial/labels](trial/labels) folder.
 
+
 # Current Framework: 
 * Tensorflow 1.7.0 (with GPU preferred). 
 * Opencv libraries, Ubuntu 16.04, Python 3.6.3 (Anaconda).
 * This training does not necessarily needs GPUs, but they will make it much faster. This model is trained on one **NVIDIA P6000 Quadro GPU** in the [**Paperspace**](https://www.paperspace.com/) cloud platform.
+
 
 # Modified Yolo-V2 Architecture:
 The [Yolo-V2](extra_files/YoloV2_paper.pdf) model is one of the most widely known model used for object detection task. 
@@ -99,11 +102,78 @@ A stripped down version of the Yolo neural network model is considered for train
 ![](images/yolo_cnn_classification.png)
 
 If the network was trained directly for the object detection, then the overall training error in bounding box coordinates might have overwhelmed the classification error and the network would have focused more on reducing the bounding box location error, thereby neglecting the classification error altogether. The bounding boxes would have been created correctly but the predicted class names might have been wrong.
-Hence after the classification training, the same ModifiedYolo model is trained for object detection to predict the location of the cells and create bounding boxes around them. In this stage, the last convolution layer is replaced by **4** other fresh convolution layers to make the network more powerful and to reshape the last layer into the required number of output elements needed.
+Hence after the classification training when the classification accuracy has reached about **96.8%** on the validation dataset, the same ModifiedYolo model is trained for object detection to predict the location of the cells and create bounding boxes around them. In this stage, the last convolution layer is replaced by **4** other fresh convolution layers to make the network more powerful and to reshape the last layer into the required number of output elements needed.
 
 The first layer of the network has a height and width of **224 x 224**. This is reduced to **14 x 14** in the last few layers. Each of these 14 x 14 grid cells is a potential location to find an object. For each grid cell, **6 anchor boxes** are predefined, whose dimensions are modified by the network to suit the shape of the detected objects. Each anchor box has **15 elements** for object detection. **Two** of them are offsets for the **x, y coordinates of the center of the bounding box**. The next **two are its height and width**. The **5th** one is a **confidence score** indicating the probability of the presence of an object in that bounding box. The last **10 are a 10 element one-hot vector** for the 10 classes. Therefore the last convolution layer has a depth of **6 x (5 + 10) = 90**. Non-maximum suppression (NMS) was used to remove redundant bounding boxes based on their intersection over union (IOU) score in the same manner as done in original yolo paper.
 
 The network used for detection is shown below:
 
 ![](images/yolo_cnn_detection.png)
+
+
+### Modified Loss Function:
+
+A simplified version of the original loss function used for object detection for yolo is shown below:
+
+![](images/orignal_yolo_loss_function.png)
+
+**x_err**, **y_err**, **w_err**, **h_err** are the errors between true and predicted values of the center x, y coordinates and width and height of the bounding box. **C_err** is the error in the confidence (that an object is present in the box) and **C'_err** is the error in the confidence (that an object is not present in the box). **Class_err** is the classification error. **lambda_coord** and **lambda_noobj** are multiplying factors that tells the network how much importance should be emphasized on the corresponding errors. 
+
+With this, the network was able to create the bounding boxes properly but the class name prediction was not very accurate. The overall mean average precision (mAP) obtained was 89%. Hence, to improve this, an extra parameter **lambda_class**, was included in the above equation so that the network puts more importance on the class name prediction as well. The modified function is shown in below:
+
+![](images/modified_yolo_loss_function.png)
+
+
+# Scripts and their Functions:
+* [**utils_2.py**](codes/utils_2.py): All important functions for creating batches, creating the dataset etc. along with some extra functions are defined here.
+* [**tiny_yolo_classifier_2.py**](codes/tiny_yolo_classifier_2.py): The model along with its associated functions are defined here.
+* [**training_2.py**](codes/training_2.py): The training process is started using this script.
+* [**testing_2_modified.py**](codes/testing_2_modified.py): Evaluates the output.
+* [**results.py**](codes/results.py): Detailed result is shown in this file.
+
+
+# Data Preprocessing, Hyperarameter and a short description of Training:
+**[NOTE] All these settings are specified in the [utils_2.py](codes/utils_2.py) file.**
+* Images are all resized into **224 x 224 x 3** size before feeding into the network.
+* **Batch size: 100**
+* **Epochs: 18** for **CLASSIFICATION** phase
+* **Learning rate: 0.001 (upto epoch 1 - 15), 0.0001 (epoch 16 - 17), 0.00001 (epch 18)** 
+* A record of the **latest maximum validation accuracy** is also kept separately in a variable.
+* The trained neural network model is saved if the validation accuracy in the current epoch is **better** than the latest maximum validation accuracy. 
+
+* Images are all resized into **224 x 224 x 3** size before feeding into the network.
+* **Batch size: 100**
+* **Epochs: 52** for **DETECTION** phase
+* **Learning rate: 0.001 (upto epoch 1 - 50), 0.0001 (epoch 51 - 52)** 
+* A record of the **latest minimum validation loss** is also kept separately in a variable.
+* The trained neural network model is saved if the validation loss in the current epoch is **lower** than the latest minimum validation loss. 
+
+A **json** file is also saved along with the checkpoint, which contains the following details: 
+* Epoch, Batch size and Learning rate.
+* Mean and Standard deviation of the training set.
+* Latest maximum validation accuracy and minimum validation error.
+* A statistics of the epoch, learning rate, training loss, training accuracy and validation accuracy upto the current epoch.
+
+These information from this json file are reloaded into the model to restart the training, in case the training process got stopped or interrupted because of any reason.
+
+
+# Results:
+### The final pixel level accuracies of the model are as follows:
+
+The **mean average precision (mAP)** measured over the test dataset was **0.97618**.
+Test Loss: 312.268301, **Test Classification Accuracy: 94.680 %**
+
+For the detection of malarial pathogens in RBCs, the true positive and false positive metrics are more suitable.
+
+**RBC Image Precision: 0.998, RBC Image Recall: 0.995, RBC Image F1score: 0.996**
+
+Confusion Matrix for the RBC images of test
+
+|	Test Set	|	Pred_Infection	|	Pred_Normal	|	Not_detected	|
+|:-------------:|:-----------------:|:-------------:|:-----------------:|
+| True_Infected | 100.000 % (TP) | 0.000 % (FN)	| 0.000 % |
+| True_Normal | 0.942 % (FP) | 99.058 % (TN) | 0.000 % |
+
+
+
 

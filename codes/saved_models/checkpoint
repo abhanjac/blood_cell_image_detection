@@ -1,0 +1,2 @@
+model_checkpoint_path: "tiny_yolo_ckpt-18"
+all_model_checkpoint_paths: "tiny_yolo_ckpt-18"

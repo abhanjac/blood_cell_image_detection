@@ -1,0 +1,90 @@
+testDir:
+
+Average Precision (AP) for class Eosinophil: 99.764 % ; Detection Accuracy: 100.000 % ; 
+Ncorrect / Ntotal (Recall): 1.000 ; Ncorrect / Npredicted (Precision): 1.000 ; F1score: 1.000 ; Mean Error in Count: 0.000
+Average Precision (AP) for class Basophil: 98.365 % ; Detection Accuracy: 99.985 % ; 
+Ncorrect / Ntotal (Recall): 1.000 ; Ncorrect / Npredicted (Precision): 0.997 ; F1score: 0.998 ; Mean Error in Count: 0.003
+Average Precision (AP) for class Neutrophil: 99.912 % ; Detection Accuracy: 99.954 % ; 
+Ncorrect / Ntotal (Recall): 0.999 ; Ncorrect / Npredicted (Precision): 0.998 ; F1score: 0.999 ; Mean Error in Count: 0.003
+Average Precision (AP) for class Lymphocytes: 99.123 % ; Detection Accuracy: 99.832 % ; 
+Ncorrect / Ntotal (Recall): 0.991 ; Ncorrect / Npredicted (Precision): 0.999 ; F1score: 0.995 ; Mean Error in Count: 0.010
+Average Precision (AP) for class Monocytes: 99.263 % ; Detection Accuracy: 99.726 % ; 
+Ncorrect / Ntotal (Recall): 1.000 ; Ncorrect / Npredicted (Precision): 0.980 ; F1score: 0.990 ; Mean Error in Count: 0.020
+Average Precision (AP) for class partialWBC: 99.333 % ; Detection Accuracy: 99.848 % ; 
+Ncorrect / Ntotal (Recall): 0.993 ; Ncorrect / Npredicted (Precision): 0.990 ; F1score: 0.992 ; Mean Error in Count: 0.017
+Average Precision (AP) for class Thrombocytes: 92.459 % ; Detection Accuracy: 98.887 % ; 
+Ncorrect / Ntotal (Recall): 0.928 ; Ncorrect / Npredicted (Precision): 0.987 ; F1score: 0.957 ; Mean Error in Count: 0.084
+Average Precision (AP) for class Clumps: 92.258 % ; Detection Accuracy: 98.994 % ; 
+Ncorrect / Ntotal (Recall): 0.992 ; Ncorrect / Npredicted (Precision): 0.854 ; F1score: 0.918 ; Mean Error in Count: 0.177
+Average Precision (AP) for class Infected: 97.567 % ; Detection Accuracy: 99.558 % ; 
+Ncorrect / Ntotal (Recall): 0.990 ; Ncorrect / Npredicted (Precision): 0.951 ; F1score: 0.970 ; Mean Error in Count: 0.061
+Average Precision (AP) for class _: 98.134 % ; Detection Accuracy: 97.104 % ; 
+Ncorrect / Ntotal (Recall): 0.993 ; Ncorrect / Npredicted (Precision): 0.944 ; F1score: 0.968 ; Mean Error in Count: 0.066
+
+Mean Average Precision (mAP) over given dataset: 97.618 %
+Testing done. Test Loss: 312.268301, Test Classification Accuracy: 94.680 %, Testing time: 0:10:22.716739
+
+Time Taken: 0:10:30.418903, RBC Precision: 0.998, RBC Recall: 0.995, RBC Specificity: 0.998, RBC F1score: 0.996
+
+Confusion Matrix for the RBCs in all the images of test
+----------------------------------------------------------------------------------------------------
+|	test Set	|	Pred_Infection	|	Pred_Normal	|	Not_detected	|
+----------------------------------------------------------------------------------------------------
+|	True_Infected	|	84.199 % (TP)	|	0.457 % (FN)	|	15.344 %	|
+|	True_Normal	|	0.152 % (FP)	|	85.069 % (TN)	|	14.779 %	|
+
+RBC Image Precision: 0.998, RBC Image Recall: 0.995, RBC Image Specificity: 0.998, RBC Image F1score: 0.996
+
+Confusion Matrix for the RBC images of test
+----------------------------------------------------------------------------------------------------
+|	test Set	|	Pred_Infection	|	Pred_Normal	|	Not_detected	|
+----------------------------------------------------------------------------------------------------
+|	True_Infected	|	100.000 % (TP)	|	0.000 % (FN)	|	0.000 %	|
+|	True_Normal	|	0.942 % (FP)	|	99.058 % (TN)	|	0.000 %	|
+
+
+
+validDir:
+
+Average Precision (AP) for class Eosinophil: 95.709 % ; Detection Accuracy: 99.893 % ; 
+Ncorrect / Ntotal (Recall): 0.996 ; Ncorrect / Npredicted (Precision): 0.996 ; F1score: 0.996 ; Mean Error in Count: 0.009
+Average Precision (AP) for class Basophil: 99.667 % ; Detection Accuracy: 97.835 % ; 
+Ncorrect / Ntotal (Recall): 0.997 ; Ncorrect / Npredicted (Precision): 0.808 ; F1score: 0.893 ; Mean Error in Count: 0.240
+Average Precision (AP) for class Neutrophil: 99.620 % ; Detection Accuracy: 99.924 % ; 
+Ncorrect / Ntotal (Recall): 0.997 ; Ncorrect / Npredicted (Precision): 0.996 ; F1score: 0.997 ; Mean Error in Count: 0.006
+Average Precision (AP) for class Lymphocytes: 87.303 % ; Detection Accuracy: 98.140 % ; 
+Ncorrect / Ntotal (Recall): 0.875 ; Ncorrect / Npredicted (Precision): 0.997 ; F1score: 0.932 ; Mean Error in Count: 0.128
+Average Precision (AP) for class Monocytes: 99.385 % ; Detection Accuracy: 99.863 % ; 
+Ncorrect / Ntotal (Recall): 0.998 ; Ncorrect / Npredicted (Precision): 0.993 ; F1score: 0.996 ; Mean Error in Count: 0.009
+Average Precision (AP) for class partialWBC: 96.161 % ; Detection Accuracy: 99.466 % ; 
+Ncorrect / Ntotal (Recall): 0.962 ; Ncorrect / Npredicted (Precision): 0.978 ; F1score: 0.970 ; Mean Error in Count: 0.059
+Average Precision (AP) for class Thrombocytes: 95.202 % ; Detection Accuracy: 99.710 % ; 
+Ncorrect / Ntotal (Recall): 0.986 ; Ncorrect / Npredicted (Precision): 0.987 ; F1score: 0.986 ; Mean Error in Count: 0.027
+Average Precision (AP) for class Clumps: 87.636 % ; Detection Accuracy: 99.878 % ; 
+Ncorrect / Ntotal (Recall): 0.990 ; Ncorrect / Npredicted (Precision): 0.912 ; F1score: 0.950 ; Mean Error in Count: 0.105
+Average Precision (AP) for class Infected: 97.918 % ; Detection Accuracy: 99.497 % ; 
+Ncorrect / Ntotal (Recall): 0.992 ; Ncorrect / Npredicted (Precision): 0.948 ; F1score: 0.970 ; Mean Error in Count: 0.062
+Average Precision (AP) for class _: 98.217 % ; Detection Accuracy: 98.064 % ; 
+Ncorrect / Ntotal (Recall): 0.994 ; Ncorrect / Npredicted (Precision): 0.945 ; F1score: 0.969 ; Mean Error in Count: 0.063
+
+Mean Average Precision (mAP) over given dataset: 95.682 %
+Testing done. Test Loss: 333.818960, Test Classification Accuracy: 94.284 %, Testing time: 0:10:18.649289
+
+Time Taken: 0:10:33.209364, RBC Precision: 0.998, RBC Recall: 0.996, RBC Specificity: 0.998, RBC F1score: 0.997
+
+Confusion Matrix for the RBCs in all the images of valid
+----------------------------------------------------------------------------------------------------
+|	valid Set	|	Pred_Infection	|	Pred_Normal	|	Not_detected	|
+----------------------------------------------------------------------------------------------------
+|	True_Infected	|	84.339 % (TP)	|	0.314 % (FN)	|	15.347 %	|
+|	True_Normal	|	0.162 % (FP)	|	85.260 % (TN)	|	14.578 %	|
+
+RBC Image Precision: 0.998, RBC Image Recall: 0.996, RBC Image Specificity: 0.998, RBC Image F1score: 0.997
+
+Confusion Matrix for the RBC images of valid
+----------------------------------------------------------------------------------------------------
+|	valid Set	|	Pred_Infection	|	Pred_Normal	|	Not_detected	|
+----------------------------------------------------------------------------------------------------
+|	True_Infected	|	100.000 % (TP)	|	0.000 % (FN)	|	0.000 %	|
+|	True_Normal	|	1.071 % (FP)	|	98.929 % (TN)	|	0.000 %	|
+
