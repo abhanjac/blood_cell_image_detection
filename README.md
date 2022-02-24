@@ -91,3 +91,19 @@ But the datasets being too big are not added to this github repository. Some sam
 * Opencv libraries, Ubuntu 16.04, Python 3.6.3 (Anaconda).
 * This training does not necessarily needs GPUs, but they will make it much faster. This model is trained on one **NVIDIA P6000 Quadro GPU** in the [**Paperspace**](https://www.paperspace.com/) cloud platform.
 
+# Modified Yolo-V2 Architecture:
+The [Yolo-V2](extra_files/YoloV2_paper.pdf) model is one of the most widely known model used for object detection task. 
+
+A stripped down version of the Yolo neural network model is considered for training because the original network was too big for our requirements. So the overall model is shrinked in size. This model is shown in the figure below. This model will be henceforth referred to as **ModifiedYolo** model. All the convolution layers (conv) have a leaky Relu activation (with alpha = 0.1) followed by a batch normalization layer at their output. These are not shown in the figure. The last convolution layer opens into a global average pooling layer with a sigmoid activation, since an image may have several different types of cells which are not mutually exclusive. The network is first trained only for classifying the cells in the images. At this stage, it outputs a multi-hot vector of **10** elements, one for each class. 
+
+![](images/yolo_cnn_classification.png)
+
+If the network was trained directly for the object detection, then the overall training error in bounding box coordinates might have overwhelmed the classification error and the network would have focused more on reducing the bounding box location error, thereby neglecting the classification error altogether. The bounding boxes would have been created correctly but the predicted class names might have been wrong.
+Hence after the classification training, the same ModifiedYolo model is trained for object detection to predict the location of the cells and create bounding boxes around them. In this stage, the last convolution layer is replaced by **4** other fresh convolution layers to make the network more powerful and to reshape the last layer into the required number of output elements needed.
+
+The first layer of the network has a height and width of **224 x 224**. This is reduced to **14 x 14** in the last few layers. Each of these 14 x 14 grid cells is a potential location to find an object. For each grid cell, **6 anchor boxes** are predefined, whose dimensions are modified by the network to suit the shape of the detected objects. Each anchor box has **15 elements** for object detection. **Two** of them are offsets for the **x, y coordinates of the center of the bounding box**. The next **two are its height and width**. The **5th** one is a **confidence score** indicating the probability of the presence of an object in that bounding box. The last **10 are a 10 element one-hot vector** for the 10 classes. Therefore the last convolution layer has a depth of **6 x (5 + 10) = 90**. Non-maximum suppression (NMS) was used to remove redundant bounding boxes based on their intersection over union (IOU) score in the same manner as done in original yolo paper.
+
+The network used for detection is shown below:
+
+![](images/yolo_cnn_detection.png)
+
