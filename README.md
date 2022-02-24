@@ -69,6 +69,19 @@ The size of the images in these datasets are **224 x 224** pixels. At first, som
 ![](images/final_images_2.png)
 
 
+### Partially Visible WBC case:
+A completely digitized blood smear image from a microscope at 40x magnification, is huge in size and cannot fit into 224 x 224 pixels. Such an image has to be broken down into segments and sent into the CNN as a batch of 224 x 224 images. The CNN produces the inference output on this batch of images which are then stitched back to the original size. 
+While creating the batch of 224 x 224 images, it may happen that some WBCs may fall at the boundary of two adjacent segments and only be partly visible in the image. Therefore, there may not be enough features visible to identify such WBCs correctly. 
+Hence, while creating the training dataset, some images are deliberately created with the WBC only partially visible in them, as shown in the above figure. In some of these images only half of the cell is visible and in some others only one quarter may be visible. These WBCs are classified as a separate class called **Partial WBC** and the type of WBC is not specified. 
+So, the total number of classes is now **10** including the Partial WBC class.
+
+After stitching back the batch of output images from the CNN, if any Partial WBC appears in it, then an inference is carried out for a second time on a 224 x 224 square around the location of the Partial WBC in the original image. This time the WBC is fully included in the image and hence a proper detection result is obtained. The Partial WBC is then replaced with the new result to improve detection accuracy. 
+No image is created where THR and Platelet clumps are partially visible because their partial and complete form has similar visual features and they can be classified correctly regardless how much is visible. However, if any THR or Platelet clump becomes partially visible in a 224 x 224 image, then there will be two of these objects detected adjacent to each other when the images are stitched together for final detection. Thus, to prevent over-counting, the same approach of a second inference around these adjacent objects is taken, just like the case of Partial WBCs.
+A flowchart of this entire process is shown in the following figure:
+
+![](images/flowchart_to_handle_partialWBC_case.png)
+
+
 The total number of images in the final training, testing and validation sets are **65350**, **6560**, and **6560** respectively. All possible combinations of cells are present in among these images. 
 
 But the datasets being too big are not added to this github repository. Some sample images are given in the [trial/images](trial/images) folder. Each of these images has a json file associated with them which contains the details of the objects present in the image along with the dimensions of the bounding box for that object. These are given in the [trial/labels](trial/labels) folder.
