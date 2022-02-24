@@ -3,6 +3,8 @@ This project shows a deep learning based approach to detect and identify differe
 
 **A *Trailer* of Final Result:**
 
+![](images/blood_cell_detection.gif)
+
 ---
 
 This project is to create a neural network to classify and detect the locations of different types of blood cells from a digital blood smear image.
@@ -191,3 +193,9 @@ Green is ground truth boxes. Background consists of infected RBCs. 224x224 image
 
 Prediction result on a full blood smear image, with an Eosinophil (E), two Neutrophils (N), infected RBCs (i) and healthy RBCs (n).
 
+
+### An overall look of the results on several example images is shown below.
+
+![](images/blood_cell_detection.gif)
+
+The video of this result can also be found on [Youtube](https://www.youtube.com/) at this [link](https://www.youtube.com/watch?v=iXx_U7ga3FU&feature=youtu.be).
