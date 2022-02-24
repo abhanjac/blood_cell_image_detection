@@ -34,6 +34,14 @@ The region of WBCs in the LISC images are cropped off using their masks to creat
 One set of infected and healthy RBCs are obtained from KAGGLE. THRs, Platelet clumps and another set of infected and healthy RBCs are cropped out manually from several MAMIC images. 
 The binary masks of the samples obtained from KAGGLE and MAMIC are created using simple image thresholding technique. 
 Finally, all these newly created samples are resized such that they are similar in size to cells seen under a microscope with **40x** magnification.
+
+Some of these resized image samples and their binary masks used for creating training, testing, and validation datasets are shown below:
+
+![](images/modified_images.png)
+
+A: Basophil cropped from an LISC image, B: Eosinophil from IUMC, C: Healthy RBC cropped from a MAMIC image, D: Infected RBC cropped from a MAMIC image, E: Healthy RBC from KAGGLE, F: Infected RBC from KAGGLE, G: Platelet clump cropped from a MAMIC image, H: THR cropped from a MAMIC image.
+
+
 The total number of samples obtained in this manner for different cells is given below: 
 
 | Cell Types | LISC | IUMC | MAMIC | KAGGLE |
@@ -65,4 +73,8 @@ The total number of images in the final training, testing and validation sets ar
 
 But the datasets being too big are not added to this github repository. Some sample images are given in the [trial/images](trial/images) folder. Each of these images has a json file associated with them which contains the details of the objects present in the image along with the dimensions of the bounding box for that object. These are given in the [trial/labels](trial/labels) folder.
 
+# Current Framework: 
+* Tensorflow 1.7.0 (with GPU preferred). 
+* Opencv libraries, Ubuntu 16.04, Python 3.6.3 (Anaconda).
+* This training does not necessarily needs GPUs, but they will make it much faster. This model is trained on one **NVIDIA P6000 Quadro GPU** in the [**Paperspace**](https://www.paperspace.com/) cloud platform.
 
