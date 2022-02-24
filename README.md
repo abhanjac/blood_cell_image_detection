@@ -5,7 +5,7 @@ This project shows a deep learning based approach to detect and identify differe
 
 <img src="https://github.com/abhanjac/blood_cell_image_detection/blob/main/images/blood_cell_detection.gif" width="300" height="150">
 
-[**YouTube Link**](https://youtu.be/NkO_WeDJ9Ng)
+[**YouTube Link**](https://youtu.be/eEIJNNf6fzM)
 
 ---
 
@@ -200,4 +200,4 @@ Prediction result on a full blood smear image, with an Eosinophil (E), two Neutr
 
 ![](images/blood_cell_detection.gif)
 
-The video of this result can also be found on [Youtube](https://www.youtube.com/) at this [link](https://www.youtube.com/watch?v=iXx_U7ga3FU&feature=youtu.be).
+The video of this result can also be found on [Youtube](https://www.youtube.com/) at this [link](https://www.youtube.com/watch?v=eEIJNNf6fzM).
