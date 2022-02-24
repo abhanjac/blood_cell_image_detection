@@ -175,5 +175,19 @@ Confusion Matrix for the RBC images of test
 | True_Normal | 0.942 % (FP) | 99.058 % (TN) | 0.000 % |
 
 
+### Some example predicted input images and segmentation map from the network:
 
+![](images/example_results_1.png)
+
+Green is ground truth boxes. Background consists of healthy RBCs. 224x224 image.
+
+
+![](images/example_results_2.png)
+
+Green is ground truth boxes. Background consists of infected RBCs. 224x224 image.
+
+
+![](images/detection_performance_on_full_1000x1000_image.png)
+
+Prediction result on a full blood smear image, with an Eosinophil (E), two Neutrophils (N), infected RBCs (i) and healthy RBCs (n).
 
